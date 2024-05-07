@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.logout = exports.login = exports.register = exports.editProfile = void 0;
+exports["default"] = exports.logout = exports.login = exports.getBikeById = exports.register = exports.editProfile = void 0;
 
 var _users = _interopRequireDefault(require("../services/users"));
 
@@ -158,13 +158,11 @@ var register = function register(credentials) {
     }, null, null, [[0, 8]]);
   };
 };
-/* actions for authentication bellow */
-
 
 exports.register = register;
 
-var login = function login(credentials) {
-  return function _callee3(dispatch) {
+var getBikeById = function getBikeById(id) {
+  return function _callee3() {
     var response;
     return regeneratorRuntime.async(function _callee3$(_context3) {
       while (1) {
@@ -172,10 +170,56 @@ var login = function login(credentials) {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return regeneratorRuntime.awrap(_users["default"].login(credentials));
+            return regeneratorRuntime.awrap(_users["default"].bikeList(id));
 
           case 3:
             response = _context3.sent;
+
+            if (response) {
+              _context3.next = 6;
+              break;
+            }
+
+            throw new Error('invalid error with response');
+
+          case 6:
+            _context3.next = 12;
+            break;
+
+          case 8:
+            _context3.prev = 8;
+            _context3.t0 = _context3["catch"](0);
+
+            _antd.message.error('invalid credentials');
+
+            console.log(_context3.t0);
+
+          case 12:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, null, null, [[0, 8]]);
+  };
+};
+/* actions for authentication bellow */
+
+
+exports.getBikeById = getBikeById;
+
+var login = function login(credentials) {
+  return function _callee4(dispatch) {
+    var response;
+    return regeneratorRuntime.async(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return regeneratorRuntime.awrap(_users["default"].login(credentials));
+
+          case 3:
+            response = _context4.sent;
             window.localStorage.setItem('elearning-user', JSON.stringify(response)); //   subscribeUser();
 
             dispatch({
@@ -183,20 +227,20 @@ var login = function login(credentials) {
               user: response
             });
             console.log('subscribed');
-            _context3.next = 13;
+            _context4.next = 13;
             break;
 
           case 9:
-            _context3.prev = 9;
-            _context3.t0 = _context3["catch"](0);
-            console.log(_context3.t0); // the backend should send the error message to show
+            _context4.prev = 9;
+            _context4.t0 = _context4["catch"](0);
+            console.log(_context4.t0); // the backend should send the error message to show
             // message.error(error.response.data.message)
 
             _antd.message.error('invalid credentials');
 
           case 13:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
     }, null, null, [[0, 9]]);
@@ -206,13 +250,13 @@ var login = function login(credentials) {
 exports.login = login;
 
 var logout = function logout() {
-  return function _callee4(dispatch) {
-    return regeneratorRuntime.async(function _callee4$(_context4) {
+  return function _callee5(dispatch) {
+    return regeneratorRuntime.async(function _callee5$(_context5) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            _context4.prev = 0;
-            _context4.next = 3;
+            _context5.prev = 0;
+            _context5.next = 3;
             return regeneratorRuntime.awrap(_users["default"].logout());
 
           case 3:
@@ -220,17 +264,17 @@ var logout = function logout() {
               type: _auth.CLEAR_USER
             });
             window.localStorage.removeItem('elearning-user');
-            _context4.next = 10;
+            _context5.next = 10;
             break;
 
           case 7:
-            _context4.prev = 7;
-            _context4.t0 = _context4["catch"](0);
-            console.log(_context4.t0);
+            _context5.prev = 7;
+            _context5.t0 = _context5["catch"](0);
+            console.log(_context5.t0);
 
           case 10:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
       }
     }, null, null, [[0, 7]]);

@@ -43,8 +43,8 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    console.log(req.body)
-    console.log(process.env.SECRET_KEY1)
+    // console.log(req.body)
+    // console.log(process.env.SECRET_KEY1)
 
      // check if the user exists
      const user = await User.findOne({ email: req.body.email });
@@ -56,8 +56,8 @@ const login = async (req, res) => {
         throw new Error('Unable to login 2')
       }
 
-    const token = await user.generateAuthToken()
-    console.log(token)
+    const token = await user.generateAuthToken();
+    console.log("token",token)
     res.send({
       success: true,
       data: token,

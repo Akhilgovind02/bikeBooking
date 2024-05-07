@@ -29,6 +29,9 @@ import AppHeader from '../components/AppHeader'
 import UserList from '../components/usersView'
 import RiderList from '../views/ridersList'
 import BikeListingPage from '../views/BikeListing/BikeListing'
+import Customer from '../pages/Customer/Customer'
+import Rider from '../pages/Rider/Rider'
+import ViewBikes from '../pages/Customer/ViewBikes'
 
 // public routes redirects to /app if authenticated
 // private routes redirects to login if not authenticated
@@ -38,10 +41,13 @@ const App = () => {
     <Switch>
     <PublicRoute path="/login" component={Login} />
     <Route path="/Register" component={Registeration} />
+    <Route path="/customer" component = {Customer}></Route>
+    <Route path = "/rider" component = {Rider}></Route>
+    <Route path = "/bike/:id" component = {ViewBikes} />
     <PrivateRoute path="/app" component={AuthnticatedApp} />
       {/* future landing page redirect to app for now */}
       <Route exact path="/">
-        <Redirect to="/app" />
+        <Redirect to="/customer" />
       </Route>
       <Route path="*" component={NotFoundPage} />
       </Switch>
@@ -93,7 +99,6 @@ const AuthnticatedApp = () => {
 
             {/* Customer module */}
             <Route path="/app/bikes" component={BikeListingPage}/>
-            
             <Route path="/app/profile" component={Profile} />
            
             </Switch>

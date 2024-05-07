@@ -1,22 +1,22 @@
 import axios from 'axios'
 import { getAuthHeader } from './config'
 
-const baseURL = 'http://localhost:9000/users'
+const baseURL = 'http://localhost:9000/'
 const registering = async (credentials) =>{
   console.log(credentials);
-  const response = await axios.post(`${baseURL}/register` ,credentials ) ;
+  const response = await axios.post(`${baseURL}user/register` ,credentials ) ;
   return response.data 
 }
 
 const login = async (credentials) => {
-  const response = await axios.post(`${baseURL}/login`, credentials)
+  const response = await axios.post(`${baseURL}user/login`, credentials)
   return response.data
 }
 
 
 const usersList = async () => {
   try {
-    const response = await axios.get(`${baseURL}/userlist`, getAuthHeader());
+    const response = await axios.get(`${baseURL}user/userlist`, getAuthHeader());
     return response.data;
   } catch (error) {
     // Handle error
@@ -25,9 +25,31 @@ const usersList = async () => {
   }
 };
 
+const bikeList = async () => {
+  try {
+    const response = await axios.get(`${baseURL}customer/available`);
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error('Failed to fetch user list:', error.message);
+    throw error;
+  }
+};
+
+
+const getBikeById = async (bikeId) => {
+  try {
+    const response = await axios.get(`${baseURL}api/bikes/${bikeId}`); // Adjust the endpoint as needed
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch bike by ID:', error.message);
+    throw error;
+  }
+};
+
 const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(`${baseURL}/userlist/${userId}`, getAuthHeader());
+    const response = await axios.delete(`${baseURL}user/userlist/${userId}`, getAuthHeader());
     return response.data;
   } catch (error) {
     throw new Error('Failed to delete user: ' + error.message);
@@ -39,7 +61,7 @@ const logout = async () => {
 
 const update = async (user) => {
   const response = await axios.patch(
-    `${baseURL}/me`,
+    `${baseURL}user/me`,
     {
       name: user?.name,
       email: user?.email,
@@ -52,5 +74,5 @@ const update = async (user) => {
   return response?.data
 }
 
-const usersService = { registering, login, logout, update, usersList , deleteUser }
+const usersService = { registering, login, logout, update, usersList , deleteUser,bikeList,getBikeById }
 export default usersService

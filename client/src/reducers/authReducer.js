@@ -68,6 +68,22 @@ export const register = (credentials) => {
   }
 }
 
+
+export const getBikeById = (id) => {
+  return async () => {
+    try {
+      // console.log(credentials)
+      const response = await usersService.bikeList(id)
+      if (!response) {
+        throw new Error('invalid error with response')
+      }
+    } catch (error) {
+      message.error('invalid credentials')
+      console.log(error)
+    }
+  }
+}
+
 /* actions for authentication bellow */
 
 export const login = (credentials) => {

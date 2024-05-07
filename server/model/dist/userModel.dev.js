@@ -224,7 +224,7 @@ userSchema.methods.generateAuthToken = function _callee() {
           user = this;
           token = jwt.sign({
             _id: user._id.toString()
-          }, process.env.SECRET_KEY, {
+          }, process.env.SECRET_KEY1, {
             expiresIn: 86400
           });
           return _context.abrupt("return", token);

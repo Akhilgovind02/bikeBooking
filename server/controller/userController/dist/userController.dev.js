@@ -80,50 +80,47 @@ var login = function login(req, res) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          console.log(req.body);
-          console.log(process.env.SECRET_KEY1); // check if the user exists
-
-          _context2.next = 5;
+          _context2.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
             email: req.body.email
           }));
 
-        case 5:
+        case 3:
           user = _context2.sent;
 
           if (user) {
-            _context2.next = 8;
+            _context2.next = 6;
             break;
           }
 
           throw new Error("User does not exist");
 
-        case 8:
+        case 6:
           if (!(req.body.password !== user.passwordConfirm)) {
-            _context2.next = 10;
+            _context2.next = 8;
             break;
           }
 
           throw new Error('Unable to login 2');
 
-        case 10:
-          _context2.next = 12;
+        case 8:
+          _context2.next = 10;
           return regeneratorRuntime.awrap(user.generateAuthToken());
 
-        case 12:
+        case 10:
           token = _context2.sent;
-          console.log(token);
+          console.log("token", token);
           res.send({
             success: true,
             data: token,
             message: "User logged in successfully",
             user: user
           });
-          _context2.next = 21;
+          _context2.next = 19;
           break;
 
-        case 17:
-          _context2.prev = 17;
+        case 15:
+          _context2.prev = 15;
           _context2.t0 = _context2["catch"](0);
           res.status(400).send({
             success: false,
@@ -131,12 +128,12 @@ var login = function login(req, res) {
           });
           console.log(_context2.t0);
 
-        case 21:
+        case 19:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[0, 17]]);
+  }, null, null, [[0, 15]]);
 };
 
 var logout = function logout(req, res) {
